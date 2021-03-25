@@ -1,5 +1,8 @@
+#script in french to create virtual machine on Hyper-V
+#include Disk creation
+
 $name = read-host "Nom de la VM"
-$hdd = Read-Host "Type de VHDX: (dyn)amic / (dif)ferencing"
+$hdd = Read-Host "Type de VHDX: (dyn)amic / (dif)ferencing" #should add static too
 [Int64]$RAM=4GB
 $PROC = 6
 $Version = "8.0"
@@ -10,12 +13,13 @@ $path= "C:\Hyper-V"
 $paging = "E:\hyper-v"
 $parent = "C:\Hyper-V\parent2019.vhdx"
 [Int64]$Size = 4GB
+
 Do {
 $RAMGB = $RAM/1024/1024/1024
 $SizeGB = $Size/1024/1024/1024
 echo " "
 echo "Options:"
-echo "chemin: $path\$name, $PROC CPU, $RAMGB GB RAM, Paging&snapshot: $paging\$name, Virtualisation inbriquée: $Virt"
+echo "chemin: $path\$name, $PROC CPU, $RAMGB GB RAM, Paging&snapshot: $paging\$name, Virtualisation inbriquÃ©e: $Virt"
 if ($hdd -eq "dyn") {echo " Taille du disque dynamique : $SizeGB GB"}else{echo " Emplacement du parent : $parent"}
 $go = Read-Host "Continuer avec ces valeurs? o/n"
 if (($go -eq "o") -or ($go -eq "oui") -or ($go -eq "y") -or ($go -eq "yes"))
@@ -37,11 +41,11 @@ $temppath= read-host "Chemin de la VM"
 if($temppath) {$path = $temppath}
 $tempPROC = read-host "Nombre de CPU"
 if($tempPROC) {$PROC = $tempPROC}
-[Int64]$tempRAM = 1GB*(read-host "Taille de la mémoire en GB")
+[Int64]$tempRAM = 1GB*(read-host "Taille de la mÃ©moire en GB")
 if($tempRAM) {[Int64]$RAM = [Int64]$tempRAM}
 $temppaging = read-host "Chemin du paging et des snapshot"
 if($temppaging) {$paging = $temppaging}
-$tempVirt = read-host "Virtualisation imbriquée true/false"
+$tempVirt = read-host "Virtualisation imbriquÃ©e true/false"
 if($tempVirt -eq "false") {[bool]$Virt = $false}else {[bool]$Virt = $true}
 if ($hdd -eq "dyn"){
 $tempSize = 1GB*(read-host "Taille du disque dynamique en GB")
